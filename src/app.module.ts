@@ -9,14 +9,12 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     AuthModule,
-    MongooseModule.forRoot('mongodb://localhost/nest'),
-    ConfigModule.forRoot({
-      envFilePath: process.env.NODE_ENV
-          ? `.${process.env.NODE_ENV}.env`
-          : '.development.env',
-  }),
+    ConfigModule.forRoot({ envFilePath: '.env' }),
+    
+    MongooseModule.forRoot(process.env.DB_CONNECTION),
+
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

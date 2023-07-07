@@ -1,35 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { LoginService } from './login.service';
-import { CreateLoginDto } from './dto/create-login.dto';
-import { UpdateLoginDto } from './dto/update-login.dto';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { LoginDTO } from './dto/login.dto';
+import { RegisterService } from '../register/register.service';
 
 @Controller('login')
+@ApiTags('Login')
 export class LoginController {
-  constructor(private readonly loginService: LoginService) {}
-
-  @Post()
-  create(@Body() createLoginDto: CreateLoginDto) {
-    console.log(createLoginDto);
-    return this.loginService.create(createLoginDto);
-  }
+  constructor(private readonly service: RegisterService) { }
 
   @Get()
-  findAll() {
-    return this.loginService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.loginService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLoginDto: UpdateLoginDto) {
-    return this.loginService.update(+id, updateLoginDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.loginService.remove(+id);
+  async create(@Query() data: LoginDTO) {
+    const usuario = await this.service.login(data);
+    if (!usuario)
+      return { success: false, message: 'El usuario o contraseña son incorrectos', data: null }
+      
+    return { success: true, message: 'Información correcta', data: { nombre: usuario.nombre, usuario: usuario.usuario } }
   }
 }
