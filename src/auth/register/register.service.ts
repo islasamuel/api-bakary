@@ -16,7 +16,7 @@ export class RegisterService {
 
 
   async login(data: LoginDTO): Promise<Usuario> {
-    return await this.model.findOne({usuario:data.usuario, password:data.password})
+    return await this.model.findOne({ usuario: data.usuario })
   }
 
 }

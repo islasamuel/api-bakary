@@ -2,6 +2,8 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { LoginDTO } from './dto/login.dto';
 import { RegisterService } from '../register/register.service';
+import * as bcrypt from 'bcrypt';
+
 
 @Controller('auth/login')
 @ApiTags('auth')
@@ -13,7 +15,11 @@ export class LoginController {
     const usuario = await this.service.login(data);
     if (!usuario)
       return { success: false, message: 'El usuario o contraseña son incorrectos', data: null }
-      
+
+    const isMatch = await bcrypt.compare(data.password, usuario.password);
+    if (!isMatch)
+      return { success: false, message: 'El usuario o contraseña son incorrectos', data: null }
+
     return { success: true, message: 'Información correcta', data: { nombre: usuario.nombre, usuario: usuario.usuario } }
   }
 }
