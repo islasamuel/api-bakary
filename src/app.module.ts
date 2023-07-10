@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { EmpresaModule } from './empresa/empresa.module';
 
 @Module({
   imports: [
@@ -12,6 +13,8 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({ envFilePath: '.env' }),
     
     MongooseModule.forRoot(process.env.DB_CONNECTION),
+    
+    EmpresaModule,
 
   ],
   controllers: [AppController],

@@ -10,8 +10,8 @@ export class RegisterService {
   constructor(@InjectModel(Usuario.name) private model: Model<Usuario>) { }
 
   async register(data: UsuarioDTO): Promise<Usuario> {
-    const createdCat = new this.model(data);
-    return createdCat.save();
+    const created = new this.model(data);
+    return created.save();
   }
 
 
