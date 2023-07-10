@@ -3,8 +3,8 @@ import { ApiTags } from '@nestjs/swagger';
 import { LoginDTO } from './dto/login.dto';
 import { RegisterService } from '../register/register.service';
 
-@Controller('login')
-@ApiTags('Login')
+@Controller('auth/login')
+@ApiTags('auth')
 export class LoginController {
   constructor(private readonly service: RegisterService) { }
 
