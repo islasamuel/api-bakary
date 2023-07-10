@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { EmpresaModule } from './empresa/empresa.module';
 import { CategoriaModule } from './categoria/categoria.module';
+import { SubCategoriaModule } from './sub-categoria/sub-categoria.module';
 
 @Module({
   imports: [
@@ -18,6 +19,8 @@ import { CategoriaModule } from './categoria/categoria.module';
     EmpresaModule,
     
     CategoriaModule,
+    
+    SubCategoriaModule,
 
   ],
   controllers: [AppController],
