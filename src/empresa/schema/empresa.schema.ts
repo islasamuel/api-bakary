@@ -3,7 +3,7 @@ import { HydratedDocument } from "mongoose";
 
 export type EmpresaDocument = HydratedDocument<Empresa>;
 
-@Schema({ collection: 'empresas' })
+@Schema({ collection: 'empresas', versionKey: false })
 export class Empresa {
     @Prop({ required: true, unique: true })
     nombre: string;
