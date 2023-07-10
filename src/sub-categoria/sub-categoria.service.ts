@@ -15,7 +15,7 @@ export class SubCategoriaService {
   }
 
   findByCategoria(categoria: string) {
-    return this.model.find({ categoria: categoria });
+    return this.model.find({ categoria: categoria }).populate('categoria', 'nombre');
   }
 
   findByNombre(nombre: string) {

@@ -14,7 +14,13 @@ import { SubCategoriaModule } from './sub-categoria/sub-categoria.module';
     AuthModule,
     ConfigModule.forRoot({ envFilePath: '.env' }),
     
-    MongooseModule.forRoot(process.env.DB_CONNECTION),
+    MongooseModule.forRoot(process.env.DB_CONNECTION, {
+      connectionFactory: (connection) => {
+        connection.plugin(require('mongoose-autopopulate'));
+        connection.plugin(require('mongoose-paginate-v2'));
+        return connection;
+      },
+    }),
     
     EmpresaModule,
     
